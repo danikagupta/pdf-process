@@ -2,3 +2,9 @@ streamlit
 pdf2image
 # sudo apt-get update
 # sudo apt-get install poppler-utils
+
+langchain
+langchain_core
+langchain_community
+pillow
+openai
