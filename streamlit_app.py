@@ -10,7 +10,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage, AIMessage, SystemMessage
 from PIL import Image
 
-(col1,col2,col3)=st.tabs(["File upload","Ask question","Future use"])
+# (col1,col2,col3)=st.tabs(["File upload","Ask question","Future use"])
 if 'total_pages' not in st.session_state:
     st.session_state['total_pages'] = 0
 
@@ -84,15 +84,52 @@ def col2code():
 def col3code():
     st.write("This is column 3 ZZZ")
 
-with col1:
-    st.write("File Upload")
-    col1code()
 
-with col2:
-    st.write("Ask question")
-    col2code()
+def main():
+    os.environ["LANGCHAIN_TRACING_V2"]="true"
+    os.environ["LANGCHAIN_API_KEY"]=st.secrets['LANGCHAIN_API_KEY']
+    os.environ["LANGSMITH_API_KEY"]=st.secrets['LANGCHAIN_API_KEY']
+    os.environ['LANGCHAIN_ENDPOINT']="https://api.smith.langchain.com"
+    os.environ['LANGCHAIN_PROJECT']="yt-review"
 
-with col3:
-    st.write("Future use")
-    col3code()
+    st.session_state["authenticated"] = True
 
+    if "authenticated" not in st.session_state:
+        st.session_state["authenticated"] = False
+
+    if not st.session_state["authenticated"]:
+        authenticate()
+    else:
+        #st.title("Video Transcription and Q&A")
+
+        user_pages=[
+            st.Page("streamlit_app.py", title="Home", icon="🏠"),
+            st.Page("ui/upload_files.py", title="Upload Files", icon="1️⃣"),
+            #st.Page("ui/41_one_video_e2e.py", title="Process One Video", icon="2️⃣"),
+            #st.Page("ui/14_transcript_yt_video.py", title="Transcript YT Video", icon="2️⃣"),
+            #st.Page("ui/11_transcripts_with_answers.py", title="Transcript Q&A", icon="🌎"),
+        ]
+
+        admin_pages=[
+            #st.Page("ui/1_upload_videos.py", title="Upload URL", icon="1️⃣"),
+            #st.Page("ui/2_transcribe_videos.py", title="Transcribe", icon="2️⃣"),
+            #st.Page("ui/3_qna.py", title="Q & A", icon="🌎"),
+        ]
+
+        bulk_pages=[
+            #st.Page("ui/31_processing_stats.py", title="Processing stats", icon="1️⃣"),
+            #st.Page("ui/32_qna_low_score.py", title="Low score Q-&-A", icon="2️⃣"),
+            #st.Page("ui/4_fix_data.py", title="Fix data", icon="🌎"),
+            #st.Page("ui/22_test_slack.py", title="More testing", icon="🌎"),
+        ]
+        pages={
+            "User": user_pages,
+            "Admin": admin_pages,
+            "Bulk": bulk_pages,
+        }
+        pg = st.navigation(pages)
+        pg.run()
+        #st.title("Video Transcription and Q&A")
+
+if __name__ == "__main__":
+    main()
