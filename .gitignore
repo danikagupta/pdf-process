@@ -1,6 +1,6 @@
 .streamlit/secrets.toml
 
-pdf_pages/
+# pdf_pages/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
