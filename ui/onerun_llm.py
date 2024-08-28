@@ -6,7 +6,7 @@ import io
 import base64
 
 
-from langchain.llms import OpenAI
+from langchain_community.llms import OpenAI
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage, AIMessage, SystemMessage
 

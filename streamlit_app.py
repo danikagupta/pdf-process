@@ -5,7 +5,7 @@ import os
 import io
 import base64
 
-from langchain.llms import OpenAI
+from langchain_community.llms import OpenAI
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage, AIMessage, SystemMessage
 from PIL import Image
@@ -121,6 +121,7 @@ def main():
         ]
 
         admin_pages=[
+            st.Page("ui/test_component.py", title="Test component", icon="🌎"),
             #st.Page("ui/1_upload_videos.py", title="Upload URL", icon="1️⃣"),
             #st.Page("ui/2_transcribe_videos.py", title="Transcribe", icon="2️⃣"),
             #st.Page("ui/3_qna.py", title="Q & A", icon="🌎"),
