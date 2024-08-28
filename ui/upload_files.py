@@ -13,7 +13,7 @@ def process_one_file(pdfbytes,name="Unknown"):
     st.write(f"Total Pages: {len(images)}")
     st.session_state['total_pages'] = len(images)
     for i, image in enumerate(images):
-        output_path = os.path.join(output_dir, f'page_{i + 1}.png')
+        output_path = os.path.join(output_dir, f'page_{i + 1:03}.png')
         image.save(output_path, 'PNG')
         st.image(image, caption=f'Page {i + 1}', use_column_width=True)
         st.write(f"Saved: {output_path}") 

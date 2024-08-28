@@ -102,12 +102,16 @@ def main():
     else:
         #st.title("Video Transcription and Q&A")
 
-        user_pages=[
+        upload_pages=[
             st.Page("streamlit_app.py", title="Home", icon="🏠"),
             st.Page("ui/upload_files.py", title="Upload Files", icon="1️⃣"),
             #st.Page("ui/41_one_video_e2e.py", title="Process One Video", icon="2️⃣"),
             #st.Page("ui/14_transcript_yt_video.py", title="Transcript YT Video", icon="2️⃣"),
             #st.Page("ui/11_transcripts_with_answers.py", title="Transcript Q&A", icon="🌎"),
+        ]
+
+        onerun_pages=[
+            st.Page("ui/onerun_llm.py", title="One LLM", icon="2️⃣"),
         ]
 
         admin_pages=[
@@ -123,9 +127,10 @@ def main():
             #st.Page("ui/22_test_slack.py", title="More testing", icon="🌎"),
         ]
         pages={
-            "User": user_pages,
-            "Admin": admin_pages,
+            "Upload": upload_pages,
+            "OneRun": onerun_pages,
             "Bulk": bulk_pages,
+            "Admin": admin_pages,
         }
         pg = st.navigation(pages)
         pg.run()
