@@ -27,7 +27,8 @@ def encode_multiple_images(images):
             ])
     return msg
 
-def onerun_llm(paper, pages,model):
+
+def onerun_llm_pages(paper, pages,model):
     dir=os.path.join("pdf_pages",paper)
     images = [os.path.join(dir,page) for page in pages]
     encoded_images = [encode_image_path(image) for image in images]
@@ -51,10 +52,20 @@ def onerun_llm(paper, pages,model):
         ]
 
         response = chat(messages)
+        print("Response: ", response)
+        st.write(response)
         st.subheader("Analysis Result:")
         st.write(response.content)
 
-def ui_one_llm():
+def ui_one_llm_full_pdf():
+    # Get the list of papers - this will be a list of directories under pdf_pages
+    papers = os.listdir("pdf_pages")
+    paper = st.selectbox("Select paper", papers)
+    pages = os.listdir(os.path.join("pdf_pages", paper))
+    pages.sort()
+    onerun_llm_pages(paper, pages, model="gpt-4o-mini")
+
+def ui_one_llm_pages():
     # Get the list of papers - this will be a list of directories under pdf_pages
     papers = os.listdir("pdf_pages")
     paper = st.selectbox("Select paper", papers)
@@ -65,10 +76,14 @@ def ui_one_llm():
     pagechoices = st.multiselect("Select pages", pagechoice)
     pages=[pages[int(page)-1] for page in pagechoices]
     st.write(f"Selected pages: {pages}")
-    onerun_llm(paper, pages,model="gpt-4o-mini")
+    onerun_llm_pages(paper, pages,model="gpt-4o-mini")
 
-st.header("One LLM")
-ui_one_llm()
+st.header("One LLM - Full PDF")
+ui_one_llm_full_pdf()
+st.divider()
+
+st.header("One LLM - Page by page")
+ui_one_llm_pages()
 st.divider()
 #st.header("AIClub LGS Page 1,2")
 #onerun_llm("AIClub-LGS",["page_001.png","page_002.png"],"gpt-4o-mini")
