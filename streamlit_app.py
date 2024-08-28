@@ -57,7 +57,7 @@ def col2code():
             base64_image = encode_image_path(image_path)
 
             # Set up ChatOpenAI model
-            chat = ChatOpenAI(model_name="gpt-4o-mini", max_tokens=300)
+            chat = ChatOpenAI(model_name="gpt-4o-mini", max_tokens=3000)
 
             # Prepare messages
             messages = [
@@ -111,6 +111,11 @@ def main():
             #st.Page("ui/11_transcripts_with_answers.py", title="Transcript Q&A", icon="🌎"),
         ]
 
+
+        query_json_pages=[
+            st.Page("ui/query_json.py", title="JSON Table", icon="2️⃣"),
+        ]
+
         onerun_pages=[
             st.Page("ui/onerun_llm.py", title="One LLM", icon="2️⃣"),
         ]
@@ -129,6 +134,7 @@ def main():
         ]
         pages={
             "Upload": upload_pages,
+            "Query": query_json_pages,
             "OneRun": onerun_pages,
             "Bulk": bulk_pages,
             "Admin": admin_pages,
